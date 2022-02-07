@@ -1,5 +1,11 @@
 <?php
-function bottlesHtml($allBottles): string {
+function bottlesHtml(array $allBottles): string {
+
+    //check to see whether this is an array of arrays and gracefully exit if not
+    if (count($allBottles) == count($allBottles, COUNT_RECURSIVE))
+    {
+        return "bottlesHTML function has not been passed an array within an array";
+    }
     $unfriendlyNames = ["purchaselocation", "type", "purchasedate"];
     $friendlyNames = ["Purchase location", "Type", "Date purchased"];
     $bottleHtml = "";
