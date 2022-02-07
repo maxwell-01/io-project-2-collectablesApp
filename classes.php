@@ -1,13 +1,13 @@
 <?php
 
-class Dbh
+class DbConnect
 {
     private string $host = "127.0.0.1:3306";
     private string $user = "root";
     private string $pwd = "password";
     private string $dbName = "collectorapp";
 
-    protected function connect()
+    protected function connect(): PDO
     {
         $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
         $pdo = new PDO($dsn, $this->user, $this->pwd);
@@ -16,7 +16,7 @@ class Dbh
     }
 }
 
-class Bottles extends Dbh
+class Bottles extends DbConnect
 {
     protected function getBottles()
     {
