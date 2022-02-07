@@ -1,16 +1,19 @@
 <?php
 require_once("functions.php");
 require_once("classes.php");
-$bottles = new BottlesView();
+$bottlesObject = new BottlesView();
+$bottles = $bottlesObject->showBottles();
+$testinput = [
+    ['id' => 1, 'itemname' => 'Park Rye', 'type' => 'Rye', 'purchaselocation' => 'Canada', 'purchasedate' => '2022-01-04']
+];
 ?>
-<html>
+<html lang="en">
 <body>
 
 <main>
-    <h1>Collector App</h1>
-    <p>
-        <?php print_r($bottles->showBottles());?>
-    </p>
+
+    <?= bottlesHtml($bottles);?>
+
 </main>
 
 </body>
