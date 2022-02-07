@@ -7,7 +7,7 @@ $testinput = [
     ['id' => 1, 'itemname' => 'Park Rye', 'type' => 'Rye', 'purchaselocation' => 'Canada', 'purchasedate' => '2022-01-04']
 ];
 ?>
-<html>
+<html lang="en">
 <body>
 
 <main>
