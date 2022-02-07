@@ -26,6 +26,13 @@ class Bottles extends DbConnect
         $results = $stmt->fetchAll();
         return $results;
     }
+
+    protected function setBottles($itemName, $purchaseLocation, $type, $purchaseDate)
+    {
+        $sql = "INSERT INTO `bottles`(itemname, purchaselocation, type, purchasedate) VALUES (?, ?, ?, ?)";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$itemName, $purchaseLocation, $type, $purchaseDate]);
+    }
 }
 
 class BottlesView extends Bottles
@@ -36,4 +43,11 @@ class BottlesView extends Bottles
         return $results;
     }
 
+}
+
+class BottlesAdd extends Bottles{
+    public function addBottle($itemName, $purchaseLocation, $type, $purchaseDate)
+    {
+        $this->setBottles($itemName, $purchaseLocation, $type, $purchaseDate);
+    }
 }
