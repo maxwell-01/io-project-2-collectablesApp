@@ -1,7 +1,9 @@
 <?php
 require_once("functions.php");
 require_once("classes.php");
-$bottles = new BottlesView();
+$bottlesObject = new BottlesView();
+$bottles = $bottlesObject->showBottles();
+
 ?>
 <html>
 <body>
@@ -9,7 +11,7 @@ $bottles = new BottlesView();
 <main>
     <h1>Collector App</h1>
     <p>
-        <?php print_r($bottles->showBottles());?>
+        <?= bottlesHtml($bottles);?>
     </p>
 </main>
 
