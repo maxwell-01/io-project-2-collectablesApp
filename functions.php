@@ -1,7 +1,7 @@
 <?php
 function bottlesHtml($allBottles): string {
-    $unfriendlyNames = ["purchaselocation", "purchasedate"];
-    $friendlyNames = ["Purchase location", 'Date purchased'];
+    $unfriendlyNames = ["purchaselocation", "type", "purchasedate"];
+    $friendlyNames = ["Purchase location", "Type", "Date purchased"];
     $bottleHtml = "";
     foreach($allBottles as $bottle) {
         $bottleHtml .= "<div class='bottleCard'>";
