@@ -1,18 +1,19 @@
 <?php
 require_once("functions.php");
-require_once("classes.php");
-$bottlesObject = new BottlesView();
-$bottles = $bottlesObject->showBottles();
-$testinput = [
-    ['id' => 1, 'itemname' => 'Park Rye', 'type' => 'Rye', 'purchaselocation' => 'Canada', 'purchasedate' => '2022-01-04']
-];
+
+$credentials = getCredentials("dbCredentials.txt");
+$dbPDO = connectDb('127.0.0.1:3306', $credentials[0], $credentials[1], 'collectorapp');
+$bottles = getBottles($dbPDO);
+
+
 ?>
 <html lang="en">
+
 <body>
 
 <main>
 
-    <?= bottlesHtml($bottles);?>
+    <?= createbottlesHtml($bottles);?>
 
 </main>
 
