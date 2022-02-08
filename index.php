@@ -1,8 +1,13 @@
 <?php
 require_once("functions.php");
 
-$dbPDO = connectDb('db', 'root', 'password', 'collectorapp');
-$bottles = getBottles($dbPDO);
+$host = 'db';
+$username = 'root';
+$password = 'password';
+$dbName = 'collectorapp';
+
+$PDO = connectDb($host, $username, $password, $dbName);
+$bottles = getBottles($PDO);
 
 
 ?>
