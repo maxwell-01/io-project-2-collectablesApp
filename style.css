@@ -20,6 +20,10 @@ h3 {
     margin: 0;
     text-align: center;
 }
+h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
 p {
     font-size: 1.5rem;
 }
@@ -47,7 +51,7 @@ form {
     gap: 30px;
     max-width: 600px;
 }
-form input, select {
+input, select {
     border: solid 1px #001453;
     border-radius: 2px;
     width: 190px;
@@ -96,6 +100,9 @@ form input, select {
     background-color: #ff8000;
     border-color: #ff8000;
 }
+.error-message {
+    color: red;
+}
 .item-cards-section {
     padding: 50px;
     background-color: #001453;
@@ -114,30 +121,7 @@ form input, select {
     border: #ffffff solid 2px;
     border-radius: 3px;
 }
-footer {
-    background-color: #ffffff;
-    padding: 40px 0;
-    display: flex;
-    justify-content: center;
-    border-top: solid 1px #00145350;
-}
-footer div {
-    display: flex;
-    gap: 25px;
-}
-.footer-item a {
-    text-decoration: none;
-    color:#001453;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.25rem;
-    transition: all 0.5s;
-}
 
-.footer-item a:hover {
-    color: #bdbdbd;
-}
 @media screen and (max-width: 600px) {
     html {
         font-size: 2vw;

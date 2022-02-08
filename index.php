@@ -1,19 +1,21 @@
 <?php
 require_once("functions.php");
 
-$host = 'db';
+$host = '127.0.0.1';
 $username = 'root';
 $password = 'password';
 $dbName = 'collectorapp';
 
 $PDO = connectDb($host, $username, $password, $dbName);
 
-if(count($_POST)>0){
-    addBottle($PDO, $_POST['itemname'], $_POST['purchaselocation'], $_POST['type'], $_POST['purchasedate']);
+$errorMessage = "";
+if(count($_POST)>0) {
+    if (checkFormSubmission($_POST)[0]) {
+        addBottle($PDO, $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
+    } else $errorMessage = checkFormSubmission($_POST)[1];
 }
-
 $bottles = getBottles($PDO);
-
+print_r($_POST);
 ?>
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -37,31 +39,32 @@ $bottles = getBottles($PDO);
                 <div class="form-outer">
                     <div class="form-inner">
                         <div>
-                            <label for="itemname">Bottle name</label>
-                            <input type="text" id="itemname" name="itemname" required>
+                            <label for="item-name">Bottle name</label>
+                            <input type="text" id="item-name" name="item-name" required>
                         </div>
                         <div>
                             <label for="type">Type of alcohol</label>
                             <select id="type" name="type" required>
-                                <option value="rum">Rum</option>
-                                <option value="rye">Rye</option>
-                                <option value="vodka">Vodka</option>
-                                <option value="whisky">Whisky</option>
+                                <option value="Rum">Rum</option>
+                                <option value="Rye">Rye</option>
+                                <option value="Vodka">Vodka</option>
+                                <option value="Whisky">Whisky</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-inner">
                         <div>
-                            <label for="purchaselocation">Purchase location</label>
-                            <input type="text" id="purchaselocation" name="purchaselocation" required>
+                            <label for="purchase-location">Purchase location</label>
+                            <input type="text" id="purchase-location" name="purchase-location" required>
                         </div>
                         <div>
-                            <label for="purchasedate">Purchased date</label>
-                            <input type="date" id="purchasedate" name="purchasedate" required>
+                            <label for="purchase-date">Purchased date</label>
+                            <input type="date" id="purchase-date" name="purchase-date" required>
                         </div>
                     </div>
                 </div>
                 <input type="submit" value="Add item" class="form-submit-button">
+                <p class="error-message"><?=$errorMessage?></p>
             </form>
         </section>
 
@@ -72,21 +75,5 @@ $bottles = getBottles($PDO);
             </div>
         </section>
     </main>
-    <footer>
-        <div>
-            <div class="footer-item">
-                <a href="https://www.instagram.com/thehopefulhitchhikers/?hl=en" target="_blank">Instagram</a>
-            </div>
-
-            <div class="footer-item">
-                <a href="https://www.linkedin.com/in/maxwellnewton/" target="_blank">LinkedIn</a>
-            </div>
-
-            <div class="footer-item">
-                <a href="https://github.com/maxwell-01" target="_blank">GitHub</a>
-            </div>
-        </div>
-
-    </footer>
 </body>
 </html>

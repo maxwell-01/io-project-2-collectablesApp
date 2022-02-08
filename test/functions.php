@@ -10,7 +10,7 @@ class Functions extends TestCase
         $testInput = [
             ['id' => 1, 'itemname' => 'Park Rye', 'type' => 'Rye', 'purchaselocation' => 'Canada', 'purchasedate' => '2022-01-04']
         ];
-        $expectedOutput = '<div class="bottleCard"><h3>Park Rye</h3><p>Type: Rye</p><p>Purchase location: Canada</p><p>Date purchased: 2022-01-04</p></div>';
+        $expectedOutput = '<div class="bottleCard"><h3>Park Rye</h3><h4>Type: </h4><p>Rye</p><h4>Purchase location: </h4><p>Canada</p><h4>Date purchased: </h4><p>2022-01-04</p></div>';
         $actualOutput = createBottlesHtml($testInput);
         $this->assertEquals($expectedOutput, $actualOutput);
     }
@@ -18,7 +18,7 @@ class Functions extends TestCase
     public function testFailuresCreateBottlesHtml()
     {
         $testInput = ['id' => 1, 'itemname' => 'Park Rye', 'type' => 'Rye', 'purchaselocation' => 'Canada', 'purchasedate' => '2022-01-04'];
-        $expectedOutput = "bottlesHTML function has not been passed an array within an array";
+        $expectedOutput = "createBottlesHtml function has not been passed an array within an array";
         $actualOutput = createBottlesHtml($testInput);
         $this->assertEquals($expectedOutput, $actualOutput);
     }
