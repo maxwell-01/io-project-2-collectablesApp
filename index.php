@@ -8,6 +8,10 @@ $bottles = getBottles($dbPDO);
 ?>
 <html lang="en">
 
+<head>
+    <title>Collector App</title>
+</head>
+
 <body>
 
 <main>
