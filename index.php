@@ -1,17 +1,20 @@
 <?php
 require_once("functions.php");
-require_once("classes.php");
+$dbPDO = connectDb('db', 'root', 'password', 'collectorapp');
 
 if(count($_POST)>0){
-    $newItemObject = new BottlesAdd();
-    $newItemObject->addBottle($_POST['itemname'], $_POST['type'], $_POST['purchaselocation'], $_POST['purchasedate']);
+    addBottle($dbPDO, $_POST['itemname'], $_POST['type'], $_POST['purchaselocation'], $_POST['purchasedate']);
 }
 
-$bottlesObject = new BottlesView();
-$bottles = $bottlesObject->showBottles();
+$bottles = getBottles($dbPDO);
 
 ?>
 <html lang="en">
+
+<head>
+    <title>Collector App</title>
+</head>
+
 <body>
 
 <main>
@@ -25,8 +28,9 @@ $bottles = $bottlesObject->showBottles();
             <input type="submit" value="Add item">
         </form>
     </section>
-    <?= bottlesHtml($bottles);?>
 
+    <?= createBottlesHtml($bottles);?>
 </main>
 
 </body>
+</html>

@@ -5,28 +5,28 @@ use PHPUnit\Framework\TestCase;
 
 class Functions extends TestCase
 {
-    public function testSuccessBottlesHtml()
+    public function testSuccessCreateBottlesHtml()
     {
-        $testinput = [
+        $testInput = [
             ['id' => 1, 'itemname' => 'Park Rye', 'type' => 'Rye', 'purchaselocation' => 'Canada', 'purchasedate' => '2022-01-04']
         ];
-        $expectedOutput = "<div class='bottleCard'><h2>Park Rye</h2><p>Type: Rye</p><p>Purchase location: Canada</p><p>Date purchased: 2022-01-04</p></div>";
-        $actualOutput = bottlesHtml($testinput);
+        $expectedOutput = '<div class="bottleCard"><h2>Park Rye</h2><p>Type: Rye</p><p>Purchase location: Canada</p><p>Date purchased: 2022-01-04</p></div>';
+        $actualOutput = createBottlesHtml($testInput);
         $this->assertEquals($expectedOutput, $actualOutput);
     }
 
-    public function testFailuresBottlesHtml()
+    public function testFailuresCreateBottlesHtml()
     {
-        $testinput = ['id' => 1, 'itemname' => 'Park Rye', 'type' => 'Rye', 'purchaselocation' => 'Canada', 'purchasedate' => '2022-01-04'];
+        $testInput = ['id' => 1, 'itemname' => 'Park Rye', 'type' => 'Rye', 'purchaselocation' => 'Canada', 'purchasedate' => '2022-01-04'];
         $expectedOutput = "bottlesHTML function has not been passed an array within an array";
-        $actualOutput = bottlesHtml($testinput);
+        $actualOutput = createBottlesHtml($testInput);
         $this->assertEquals($expectedOutput, $actualOutput);
     }
 
-    public function testMalformedBottlesHtml()
+    public function testMalformedCreateBottlesHtml()
     {
-        $testinput = "banana"; //input is wrong data type
+        $testInput = "banana";
         $this->expectException(TypeError::class);
-        $output = bottlesHtml($testinput);
+        $output = createBottlesHtml($testInput);
     }
 }
