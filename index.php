@@ -1,16 +1,17 @@
 <?php
 require_once("functions.php");
 
-if(count($_POST)>0){
-    addBottle($dbPDO, $_POST['itemname'], $_POST['type'], $_POST['purchaselocation'], $_POST['purchasedate']);
-}
-
-$host = '127.0.0.1';
+$host = 'db';
 $username = 'root';
 $password = 'password';
 $dbName = 'collectorapp';
 
 $PDO = connectDb($host, $username, $password, $dbName);
+
+if(count($_POST)>0){
+    addBottle($PDO, $_POST['itemname'], $_POST['purchaselocation'], $_POST['type'], $_POST['purchasedate']);
+}
+
 $bottles = getBottles($PDO);
 
 ?>
