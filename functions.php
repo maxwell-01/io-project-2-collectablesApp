@@ -35,7 +35,7 @@ function createBottlesHtml(array $allBottles): string {
     $bottlesHtml = "";
     foreach($allBottles as $bottle) {
         $bottlesHtml .= '<div class="bottleCard">';
-        $bottlesHtml .= "<h2>" . $bottle['itemname'] . "</h2>";
+        $bottlesHtml .= "<h3>" . $bottle['itemname'] . "</h3>";
         foreach($bottle as $detailName => $detailValue){
             if($detailName == 'itemname' || $detailName == 'id') {
                 continue;

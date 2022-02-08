@@ -17,6 +17,11 @@ h2 {
     margin: 50px 0;
     text-align: center;
 }
+h3 {
+    font-size: 2rem;
+    margin: 0;
+    text-align: center;
+}
 header {
     background-color: #001453;
     padding: 50px 0;
@@ -26,18 +31,41 @@ header {
     justify-content: center;
     color: #ffffff;
 }
+.new-item-form-section {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+}
 form {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     gap: 30px;
-    max-width: 400px;
+    max-width: 600px;
 }
-form input {
+form input, select {
     border: solid 1px #001453;
     border-radius: 2px;
     width: 190px;
     min-height: 35px;
+    background-color: #ffffff;
+}
+.form-outer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+}
+.form-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
 }
 .form-submit-button {
     text-decoration: none;
@@ -51,7 +79,7 @@ form input {
     border-color: #001453;
     border-width: 2px;
     border-style: solid;
-    background-color: transparent;
+    background-color: #ffffff;
     border-radius: 3px;
 }
 .form-submit-button:hover {
@@ -74,11 +102,13 @@ footer div {
 }
 
 .footer-item a {
+    text-decoration: none;
     color:#001453;
     font-size: 1.5rem;
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 0.25rem;
+    transition: all 0.5s;
 }
 
 .footer-item a:hover {

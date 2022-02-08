@@ -29,26 +29,45 @@ $bottles = getBottles($PDO);
 
 <body>
 
-<header>
+    <header>
 
-    <h1>Collector App</h1>
+        <h1>Collector App</h1>
 
-</header>
+    </header>
 
-<main>
-    <section class="new-item-form">
-        <form method="POST" action="index.php">
-            <h2>Add new item</h2>
-            <label for="itemname">Name:</label><input type="text" id="itemname" name="itemname" required>
-            <label for="type">Type:</label><input type="text" id="type" name="type" required>
-            <label for="purchaselocation">Purchase location:</label><input type="text" id="purchaselocation" name="purchaselocation" required>
-            <label for="purchasedate">Purchased date:</label><input type="date" id="purchasedate" name="purchasedate" required>
-            <input type="submit" value="Add item" class="form-submit-button">
-        </form>
-    </section>
+    <main>
+        <section class="new-item-form-section">
+            <form method="POST" action="index.php">
+                <h2>Add a new bottle to your collection</h2>
+                <div class="form-outer">
+                    <div class="form-inner">
+                        <label for="itemname">Bottle name</label>
+                        <input type="text" id="itemname" name="itemname" required>
+                        <label for="type">Type of alcohol</label>
+                        <select id="type" name="type" required>
+                            <option value="rum">Rum</option>
+                            <option value="rye">Rye</option>
+                            <option value="vodka">Vodka</option>
+                            <option value="whisky">Whisky</option>
+                        </select>
+                    </div>
+                    <div class="form-inner">
+                        <label for="purchaselocation">Purchase location</label>
+                        <input type="text" id="purchaselocation" name="purchaselocation" required>
+                        <label for="purchasedate">Purchased date</label>
+                        <input type="date" id="purchasedate" name="purchasedate" required>
+                    </div>
+                </div>
+                <input type="submit" value="Add item" class="form-submit-button">
+            </form>
+        </section>
 
-    <?= createBottlesHtml($bottles);?>
-</main>
+        <section class="item-cards-section">
+            <h2>Currently in your collection...</h2>
+            <?= createBottlesHtml($bottles);?>
+        </section>
+
+    </main>
 
 </body>
 <footer>
