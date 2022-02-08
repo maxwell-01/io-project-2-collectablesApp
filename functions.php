@@ -16,7 +16,7 @@ function getBottles($pdo)
     return $results;
 }
 
-function createbottlesHtml(array $allBottles): string {
+function createBottlesHtml(array $allBottles): string {
 
     //check to see whether this is an array of arrays and gracefully exits if not
     if (count($allBottles) == count($allBottles, COUNT_RECURSIVE))

@@ -16,8 +16,9 @@ $bottles = getBottles($dbPDO);
 
 <main>
 
-    <?= createbottlesHtml($bottles);?>
+    <?= createBottlesHtml($bottles);?>
 
 </main>
 
 </body>
+</html>
