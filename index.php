@@ -41,21 +41,29 @@ $bottles = getBottles($PDO);
                 <h2>Add a new bottle to your collection</h2>
                 <div class="form-outer">
                     <div class="form-inner">
-                        <label for="itemname">Bottle name</label>
-                        <input type="text" id="itemname" name="itemname" required>
-                        <label for="type">Type of alcohol</label>
-                        <select id="type" name="type" required>
-                            <option value="rum">Rum</option>
-                            <option value="rye">Rye</option>
-                            <option value="vodka">Vodka</option>
-                            <option value="whisky">Whisky</option>
-                        </select>
+                        <div>
+                            <label for="itemname">Bottle name</label>
+                            <input type="text" id="itemname" name="itemname" required>
+                        </div>
+                        <div>
+                            <label for="type">Type of alcohol</label>
+                            <select id="type" name="type" required>
+                                <option value="rum">Rum</option>
+                                <option value="rye">Rye</option>
+                                <option value="vodka">Vodka</option>
+                                <option value="whisky">Whisky</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-inner">
-                        <label for="purchaselocation">Purchase location</label>
-                        <input type="text" id="purchaselocation" name="purchaselocation" required>
-                        <label for="purchasedate">Purchased date</label>
-                        <input type="date" id="purchasedate" name="purchasedate" required>
+                        <div>
+                            <label for="purchaselocation">Purchase location</label>
+                            <input type="text" id="purchaselocation" name="purchaselocation" required>
+                        </div>
+                        <div>
+                            <label for="purchasedate">Purchased date</label>
+                            <input type="date" id="purchasedate" name="purchasedate" required>
+                        </div>
                     </div>
                 </div>
                 <input type="submit" value="Add item" class="form-submit-button">
@@ -64,7 +72,9 @@ $bottles = getBottles($PDO);
 
         <section class="item-cards-section">
             <h2>Currently in your collection...</h2>
-            <?= createBottlesHtml($bottles);?>
+            <div class="bottlesParent">
+                <?= createBottlesHtml($bottles);?>
+            </div>
         </section>
 
     </main>
