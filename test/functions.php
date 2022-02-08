@@ -10,7 +10,7 @@ class Functions extends TestCase
         $testInput = [
             ['id' => 1, 'itemname' => 'Park Rye', 'type' => 'Rye', 'purchaselocation' => 'Canada', 'purchasedate' => '2022-01-04']
         ];
-        $expectedOutput = '<div class="bottleCard"><h2>Park Rye</h2><p>Type: Rye</p><p>Purchase location: Canada</p><p>Date purchased: 2022-01-04</p></div>';
+        $expectedOutput = '<div class="bottleCard"><h3>Park Rye</h3><p>Type: Rye</p><p>Purchase location: Canada</p><p>Date purchased: 2022-01-04</p></div>';
         $actualOutput = createBottlesHtml($testInput);
         $this->assertEquals($expectedOutput, $actualOutput);
     }
