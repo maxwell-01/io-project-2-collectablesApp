@@ -1,7 +1,7 @@
 <?php
 require_once("functions.php");
 
-$dbPDO = connectDb('127.0.0.1:3306', 'root', 'password', 'collectorapp');
+$dbPDO = connectDb('db', 'root', 'password', 'collectorapp');
 $bottles = getBottles($dbPDO);
 
 
