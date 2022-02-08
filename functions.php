@@ -1,17 +1,5 @@
 <?php
 
-function getCredentials($credentialFilename): array {
-    // reads file and creates array with username at index 0 and password at index 1
-    $lines = file(__DIR__.'/'.$credentialFilename);
-    $credentials = [];
-    foreach($lines as $line) {
-        if (empty($line)) continue;
-        $exploded = (explode(' ', $line));
-        $credentials[] = str_replace("\n","",$exploded[1]);
-    }
-    return $credentials;
-}
-
 function connectDb(string $host, string $user, $password, string $dbName): PDO {
     $dsn = 'mysql:host=' . $host . ';dbname=' . $dbName;
     $pdo = new PDO($dsn, $user, $password);

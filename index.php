@@ -1,8 +1,7 @@
 <?php
 require_once("functions.php");
 
-$credentials = getCredentials("dbCredentials.txt");
-$dbPDO = connectDb('127.0.0.1:3306', $credentials[0], $credentials[1], 'collectorapp');
+$dbPDO = connectDb('127.0.0.1:3306', 'root', 'password', 'collectorapp');
 $bottles = getBottles($dbPDO);
 
 
