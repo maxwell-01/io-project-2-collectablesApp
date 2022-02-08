@@ -17,7 +17,6 @@ $bottles = getBottles($PDO);
 ?>
 <!DOCTYPE html>
 <html lang="en-GB">
-
 <head>
     <title>Collector App</title>
     <link rel="stylesheet" href="normalize.css">
@@ -27,15 +26,10 @@ $bottles = getBottles($PDO);
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="shortcut icon" type="image/jpg" href="favicon.ico"/>
 </head>
-
 <body>
-
     <header>
-
         <h1>Collector App</h1>
-
     </header>
-
     <main>
         <section class="new-item-form-section">
             <form method="POST" action="index.php">
@@ -77,24 +71,22 @@ $bottles = getBottles($PDO);
                 <?= createBottlesHtml($bottles);?>
             </div>
         </section>
-
     </main>
+    <footer>
+        <div>
+            <div class="footer-item">
+                <a href="https://www.instagram.com/thehopefulhitchhikers/?hl=en" target="_blank">Instagram</a>
+            </div>
 
+            <div class="footer-item">
+                <a href="https://www.linkedin.com/in/maxwellnewton/" target="_blank">LinkedIn</a>
+            </div>
+
+            <div class="footer-item">
+                <a href="https://github.com/maxwell-01" target="_blank">GitHub</a>
+            </div>
+        </div>
+
+    </footer>
 </body>
-<footer>
-    <div>
-        <div class="footer-item">
-            <a href="https://www.instagram.com/thehopefulhitchhikers/?hl=en" target="_blank">Instagram</a>
-        </div>
-
-        <div class="footer-item">
-            <a href="https://www.linkedin.com/in/maxwellnewton/" target="_blank">LinkedIn</a>
-        </div>
-
-        <div class="footer-item">
-            <a href="https://github.com/maxwell-01" target="_blank">GitHub</a>
-        </div>
-    </div>
-
-</footer>
 </html>
