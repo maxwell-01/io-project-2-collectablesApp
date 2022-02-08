@@ -19,11 +19,11 @@ $bottles = getBottles($PDO);
 
 <body>
 
-<main>
+    <main>
 
-    <?= createBottlesHtml($bottles);?>
+        <?= createBottlesHtml($bottles);?>
 
-</main>
+    </main>
 
 </body>
 </html>
