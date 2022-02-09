@@ -15,7 +15,6 @@ if(count($_POST)>0) {
     } else $errorMessage = checkFormSubmission($_POST)[1];
 }
 $bottles = getBottles($PDO);
-print_r($_POST);
 ?>
 <!DOCTYPE html>
 <html lang="en-GB">

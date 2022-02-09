@@ -21,14 +21,14 @@ function addBottle(PDO $pdo, string $itemName, string $purchaseLocation,string $
     $stmt->execute([$itemName, $purchaseLocation, $type, $purchaseDate]);
 }
 
-function validateDate($date, $format = 'Y-m-d')
+function validateDate(string $date, string $format = 'Y-m-d'): bool
 {
-    $d = DateTime::createFromFormat($format, $date);
-    return $d && $d->format($format) === $date;
+    $dateObject = DateTime::createFromFormat($format, $date);
+    return $dateObject && $dateObject->format($format) === $date;
 }
 
 function checkFormSubmission(array $postArray): array {
-    if(!isset($postArray['item-name']) ||  !isset($_POST['purchase-location']) || !isset($_POST['type']) || !isset($_POST['purchase-date'])){
+    if(empty($postArray['item-name']) ||  empty($postArray['purchase-location']) || empty($postArray['type']) || empty($postArray['purchase-date'])){
         return [false, "Please enter a value for all fields."];
     }
     if(!validateDate($postArray['purchase-date'])){
@@ -60,8 +60,8 @@ function createBottlesHtml(array $allBottles): string {
         }
         $bottlesHtml .= '</div>';
     }
-    $unfriendlyNames = ["<h4>purchaselocation: </h4>", "<h4>type: </h4>", "<h4>purchasedate: </h4>"];
-    $friendlyNames = ["<h4>Purchase location: </h4>", "<h4>Type: </h4>", "<h4>Date purchased: </h4>"];
+    $unfriendlyNames = ["purchaselocation", "type", "purchasedate"];
+    $friendlyNames = ["Purchase location", "Type", "Date purchased"];
     $bottlesHtml = str_replace($unfriendlyNames, $friendlyNames, $bottlesHtml);
     return $bottlesHtml;
 }

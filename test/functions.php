@@ -29,4 +29,58 @@ class Functions extends TestCase
         $this->expectException(TypeError::class);
         $output = createBottlesHtml($testInput);
     }
+    public function testSuccessValidateDateCorrectInput()
+    {
+        $testInput = "2017-12-04";
+        $expectedOutput = true;
+        $actualOutput = validateDate($testInput);
+        $this->assertEquals($expectedOutput, $actualOutput);
+    }
+    public function testSuccessValidateDateIncorrectInput()
+    {
+        $testInput = "2017-13-04";
+        $expectedOutput = false;
+        $actualOutput = validateDate($testInput);
+        $this->assertEquals($expectedOutput, $actualOutput);
+    }
+    public function testMalformedValidateDate()
+    {
+        $testInput = ["array"];
+        $this->expectException(TypeError::class);
+        $output = validateDate($testInput);
+    }
+    public function testSuccessCheckFormSubmissionPass()
+    {
+        $testInput = ['item-name' => 'Penderyn', 'type' => 'Whisky', 'purchase-location' => 'Cardiff', 'purchase-date' => '2017-12-12'];
+        $expectedOutput = [true, ""];
+        $actualOutput = checkFormSubmission($testInput);
+        $this->assertEquals($expectedOutput, $actualOutput);
+    }
+    public function testSuccessCheckFormSubmissionNotAllFieldsSupplied()
+    {
+        $testInput =  ['item-name' => '','type' => 'Whisky', 'purchase-location' => 'Cardiff', 'purchase-date' => '2017-12-12'];
+        $expectedOutput = [false, "Please enter a value for all fields."];
+        $actualOutput = checkFormSubmission($testInput);
+        $this->assertEquals($expectedOutput, $actualOutput);
+    }
+    public function testSuccessCheckFormSubmissionWrongDate()
+    {
+        $testInput = ['item-name' => 'Penderyn', 'type' => 'Whisky', 'purchase-location' => 'Cardiff', 'purchase-date' => '2017-13-12'];
+        $expectedOutput = [false, "Please ensure you enter a date in the format yyyy-mm-dd."];
+        $actualOutput = checkFormSubmission($testInput);
+        $this->assertEquals($expectedOutput, $actualOutput);
+    }
+    public function testSuccessCheckFormSubmissionWrongType()
+    {
+        $testInput = ['item-name' => 'Penderyn', 'type' => 'Gin', 'purchase-location' => 'Cardiff', 'purchase-date' => '2017-12-12'];
+        $expectedOutput = [false, "You must choose one of the options for alcohol type."];
+        $actualOutput = checkFormSubmission($testInput);
+        $this->assertEquals($expectedOutput, $actualOutput);
+    }
+    public function testMalformedCheckFormSubmission()
+    {
+        $testInput = 1;
+        $this->expectException(TypeError::class);
+        $output = checkFormSubmission($testInput);
+    }
 }
