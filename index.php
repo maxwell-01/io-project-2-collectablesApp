@@ -1,7 +1,7 @@
 <?php
 require_once("functions.php");
 
-$host = 'db';
+$host = '127.0.0.1';
 $username = 'root';
 $password = 'password';
 $dbName = 'collectorapp';
@@ -9,11 +9,23 @@ $dbName = 'collectorapp';
 $PDO = connectDb($host, $username, $password, $dbName);
 
 $errorMessage = "";
-if(count($_POST)>0) {
+if(count($_POST)==4) {
     if (checkFormSubmission($_POST)[0]) {
         addBottle($PDO, $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
     } else $errorMessage = checkFormSubmission($_POST)[1];
 }
+if(count($_POST)==5) {
+    if (checkFormSubmission($_POST)[0]) {
+        updateBottle($PDO, $_POST['id'], $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
+    } else $errorMessage = checkFormSubmission($_POST)[1];
+}
+
+
+$editCardId = '';
+if(isset($_GET['editCardId'])) {
+    $editCardId = $_GET['editCardId'];
+}
+
 $bottles = getBottles($PDO);
 ?>
 <!DOCTYPE html>
@@ -70,7 +82,7 @@ $bottles = getBottles($PDO);
         <section class="item-cards-section">
             <h2>Currently in your collection...</h2>
             <div class="bottlesParent">
-                <?= createBottlesHtml($bottles);?>
+                <?= createBottlesHtml($bottles, $editCardId);?>
             </div>
         </section>
     </main>
