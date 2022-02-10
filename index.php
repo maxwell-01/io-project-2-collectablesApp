@@ -14,7 +14,7 @@ if(count($_POST)>0) {
     $dropdownSubmissionCheck = checkDropdownSubmission($_POST);
     if ($formSubmissionCheck['result'] && $dropdownSubmissionCheck['result']) {
         addBottle($PDO, $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
-    } else $errorMessage = $formSubmissionCheck['message'] . $dropdownSubmissionCheck['message'];
+    } else $errorMessage = $formSubmissionCheck['message'] .' '. $dropdownSubmissionCheck['message'];
 }
 $bottles = getBottles($PDO);
 ?>

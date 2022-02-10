@@ -76,7 +76,14 @@ class Functions extends TestCase
         $this->expectException(TypeError::class);
         $output = checkFormSubmission($testInput);
     }
-    public function testSuccessCheckDropdownSubmission()
+    public function testSuccessCheckDropdownSubmissionCorrectInput()
+    {
+        $testInput = ['item-name' => 'Penderyn', 'type' => 'Whisky', 'purchase-location' => 'Cardiff', 'purchase-date' => '2017-12-12'];
+        $expectedOutput = ['result' => true, 'message'=> ""];
+        $actualOutput = checkDropdownSubmission($testInput);
+        $this->assertEquals($expectedOutput, $actualOutput);
+    }
+    public function testSuccessCheckDropdownSubmissionWrongInput()
     {
         $testInput = ['item-name' => 'Penderyn', 'type' => 'Gin', 'purchase-location' => 'Cardiff', 'purchase-date' => '2017-12-12'];
         $expectedOutput = ['result' => false, 'message'=> "You must choose one of the options for alcohol type."];
