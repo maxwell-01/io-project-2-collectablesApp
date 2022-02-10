@@ -23,6 +23,7 @@ h3 {
 h4 {
     font-size: 1.5rem;
     font-weight: bold;
+    text-transform: uppercase;
 }
 p {
     font-size: 1.5rem;
@@ -101,6 +102,16 @@ input, select {
     border: #ffffff solid 2px;
     border-radius: 3px;
 }
+.card-parent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.card-parent div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .card-parent h3 {
     display: inline-block;
 }
@@ -143,8 +154,8 @@ a.anchor {
 .edit-button-on-card {
     display: inline;
     background-color: transparent;
-    max-width: 50px;
-    float: right;
+    max-width: 30px;
+    max-height: 20px;
 }
 .form-outer {
     display: flex;

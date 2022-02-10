@@ -7,7 +7,7 @@ function connectDb(string $host, string $user, string $password, string $dbName)
     return $pdo;
 }
 
-function getBottles($pdo): array {
+function getBottles(PDO $pdo): array {
     $sql = "SELECT * FROM `bottles`";
     $statement = $pdo->prepare($sql);
     $statement->execute();
@@ -15,8 +15,8 @@ function getBottles($pdo): array {
     return $results;
 }
 
-function addBottle(PDO $pdo, string $itemName, string $purchaseLocation,string $type, string $purchaseDate) {
-    $sql = "INSERT INTO `bottles`(itemname, purchaselocation, type, purchasedate) VALUES (?, ?, ?, ?)";
+function addBottle(PDO $pdo, string $itemName, string $purchaseLocation, string $type, string $purchaseDate) {
+    $sql = "INSERT INTO `bottles`(`itemname`, `purchaselocation`, `type`, `purchasedate`) VALUES (?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$itemName, $purchaseLocation, $type, $purchaseDate]);
 }
@@ -35,16 +35,20 @@ function validateDate(string $date, string $format = 'Y-m-d'): bool
 
 function checkFormSubmission(array $postArray): array {
     if(empty($postArray['item-name']) ||  empty($postArray['purchase-location']) || empty($postArray['type']) || empty($postArray['purchase-date'])){
-        return [false, "Please enter a value for all fields."];
+        return ['result' => false, 'message' => "Please enter a value for all fields."];
     }
     if(!validateDate($postArray['purchase-date'])){
-        return [false, "Please ensure you enter a date in the format yyyy-mm-dd."];
+        return ['result' => false, 'message' => "Please ensure you enter a date in the format yyyy-mm-dd."];
     }
+    return ['result' => true, 'message' => ""];
+}
+
+function checkDropdownSubmission(array $postArray): array {
     $alcoholTypes = ["Rum", "Rye", "Vodka", "Whisky"];
     if(!in_array($postArray['type'], $alcoholTypes)) {
-        return [false, "You must choose one of the options for alcohol type."];
+        return ['result' => false, 'message' => "You must choose one of the options for alcohol type."];
     }
-    return [true, ""];
+    return ['result' => true, 'message' => ""];
 }
 
 function createBottlesHtml(array $allBottles, string $editCardId = null): string {
@@ -62,7 +66,7 @@ function createBottlesHtml(array $allBottles, string $editCardId = null): string
         if(isset($editCardId) && $editCardId == $bottle['id']) {
             $bottlesHtml .=
                 '
-                <form class="card-ed it-button-form" method="POST" action="index.php#dbId-'.$bottle['id'].'">
+                <form class="card-edit-button-form" method="POST" action="index.php#dbId-'.$bottle['id'].'">
                     <div class="card-outer">
                         <h3>Bottle number '.$bottle['id'].'</h3>
                         <div class="card-inner">
@@ -100,11 +104,13 @@ function createBottlesHtml(array $allBottles, string $editCardId = null): string
         } else {
             $bottlesHtml .=
                 '<div class="card-parent">
-                    <h3>Bottle number '.$bottle['id'].'</h3>
-                    <form class="edit-initiate-form" method="GET" action="index.php#dbId-'.$bottle['id'].'">
-                        <input type="hidden" name="editCardId" value="'.$bottle['id'].'">
-                        <input type="image" alt="edit-button" src="edit.png" class="edit-button-on-card">
-                    </form>
+                    <div>
+                        <h3>Bottle number '.$bottle['id'].'</h3>
+                        <form class="edit-initiate-form" method="GET" action="index.php#dbId-'.$bottle['id'].'">
+                            <input type="hidden" name="editCardId" value="'.$bottle['id'].'">
+                            <input type="image" alt="edit-button" src="edit.png" class="edit-button-on-card">
+                        </form>
+                    </div>
                     <div class="card-outer">
                         <div class="card-inner">
                             <div>

@@ -1,7 +1,7 @@
 <?php
 require_once("functions.php");
 
-$host = '127.0.0.1';
+$host = 'db';
 $username = 'root';
 $password = 'password';
 $dbName = 'collectorapp';
@@ -10,14 +10,18 @@ $PDO = connectDb($host, $username, $password, $dbName);
 
 $errorMessage = "";
 if(count($_POST)==4) {
-    if (checkFormSubmission($_POST)[0]) {
+    $formSubmissionCheck = checkFormSubmission($_POST);
+    $dropdownSubmissionCheck = checkDropdownSubmission($_POST);
+    if ($formSubmissionCheck['result'] && $dropdownSubmissionCheck['result']) {
         addBottle($PDO, $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
-    } else $errorMessage = checkFormSubmission($_POST)[1];
+    } else $errorMessage = $formSubmissionCheck['message'] . $dropdownSubmissionCheck['message'];
 }
 if(count($_POST)==5) {
-    if (checkFormSubmission($_POST)[0]) {
+    $formSubmissionCheck = checkFormSubmission($_POST);
+    $dropdownSubmissionCheck = checkDropdownSubmission($_POST);
+    if ($formSubmissionCheck['result'] && $dropdownSubmissionCheck['result']) {
         updateBottle($PDO, $_POST['id'], $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
-    } else $errorMessage = checkFormSubmission($_POST)[1];
+    } else $errorMessage = $formSubmissionCheck['message'] . $dropdownSubmissionCheck['message'];
 }
 
 
