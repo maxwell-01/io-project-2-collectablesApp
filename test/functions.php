@@ -12,7 +12,8 @@ class Functions extends TestCase
         ];
         $expectedOutput =
             '<div class="bottleCard">
-            <a class="anchor" id="dbId-1"></a><div class="card-parent">
+            <a class="anchor" id="dbId-1"></a>
+                <div class="card-parent">
                     <div>
                         <h3>Bottle number 1</h3>
                         <form class="edit-initiate-form" method="GET" action="index.php#dbId-1">
@@ -88,8 +89,7 @@ class Functions extends TestCase
                     <input type="hidden" value="1" name="id">
                     <input type="submit" value="Update item" class="form-submit-button">
                     <p class="error-message"><?=$errorMessage?></p>
-                </form>
-                </div>';
+                </form></div>';
         $actualOutput = createBottlesHtml($testInputPostArray, $testInputString);
         $this->assertEquals($expectedOutput, $actualOutput);
     }

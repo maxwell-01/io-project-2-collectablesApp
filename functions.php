@@ -64,8 +64,7 @@ function createBottlesHtml(array $allBottles, string $editCardId = null): string
             '<div class="bottleCard">
             <a class="anchor" id="dbId-'.$bottle['id'].'"></a>';
         if(isset($editCardId) && $editCardId == $bottle['id']) {
-            $bottlesHtml .=
-                '
+            $bottlesHtml .='
                 <form class="card-edit-button-form" method="POST" action="index.php#dbId-'.$bottle['id'].'">
                     <div class="card-outer">
                         <h3>Bottle number '.$bottle['id'].'</h3>
@@ -99,11 +98,10 @@ function createBottlesHtml(array $allBottles, string $editCardId = null): string
                     <input type="hidden" value="'.$bottle['id'].'" name="id">
                     <input type="submit" value="Update item" class="form-submit-button">
                     <p class="error-message"><?=$errorMessage?></p>
-                </form>
-                ';
+                </form>';
         } else {
-            $bottlesHtml .=
-                '<div class="card-parent">
+            $bottlesHtml .='
+                <div class="card-parent">
                     <div>
                         <h3>Bottle number '.$bottle['id'].'</h3>
                         <form class="edit-initiate-form" method="GET" action="index.php#dbId-'.$bottle['id'].'">
@@ -141,8 +139,4 @@ function createBottlesHtml(array $allBottles, string $editCardId = null): string
     $friendlyNames = ["Purchase location", "<h4>Type</h4>", "Date purchased"];
     $bottlesHtml = str_replace($unfriendlyNames, $friendlyNames, $bottlesHtml);
     return $bottlesHtml;
-}
-
-function editBottleCard() {
-    //set div for certain ids to hidden
 }

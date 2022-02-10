@@ -9,14 +9,14 @@ $dbName = 'collectorapp';
 $PDO = connectDb($host, $username, $password, $dbName);
 
 $errorMessage = "";
-if(count($_POST)==4) {
+if(count($_POST) == 4) {
     $formSubmissionCheck = checkFormSubmission($_POST);
     $dropdownSubmissionCheck = checkDropdownSubmission($_POST);
     if ($formSubmissionCheck['result'] && $dropdownSubmissionCheck['result']) {
         addBottle($PDO, $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
     } else $errorMessage = $formSubmissionCheck['message'] . $dropdownSubmissionCheck['message'];
 }
-if(count($_POST)==5) {
+if(count($_POST) == 5) {
     $formSubmissionCheck = checkFormSubmission($_POST);
     $dropdownSubmissionCheck = checkDropdownSubmission($_POST);
     if ($formSubmissionCheck['result'] && $dropdownSubmissionCheck['result']) {
