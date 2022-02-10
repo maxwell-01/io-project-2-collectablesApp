@@ -1,7 +1,7 @@
 <?php
 require_once("functions.php");
 
-$host = '127.0.0.1';
+$host = 'db';
 $username = 'root';
 $password = 'password';
 $dbName = 'collectorapp';
