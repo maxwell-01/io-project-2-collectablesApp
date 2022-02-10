@@ -7,13 +7,42 @@ function connectDb(string $host, string $user, string $password, string $dbName)
     return $pdo;
 }
 
-function getBottles($pdo)
-{
+function getBottles(PDO $pdo): array {
     $sql = "SELECT * FROM `bottles`";
     $statement = $pdo->prepare($sql);
     $statement->execute();
     $results = $statement->fetchAll();
     return $results;
+}
+
+function addBottle(PDO $pdo, string $itemName, string $purchaseLocation, string $type, string $purchaseDate) {
+    $sql = "INSERT INTO `bottles`(`itemname`, `purchaselocation`, `type`, `purchasedate`) VALUES (?, ?, ?, ?)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$itemName, $purchaseLocation, $type, $purchaseDate]);
+}
+
+function validateDate(string $date, string $format = 'Y-m-d'): bool
+{
+    $dateObject = DateTime::createFromFormat($format, $date);
+    return $dateObject && $dateObject->format($format) === $date;
+}
+
+function checkFormSubmission(array $postArray): array {
+    if(empty($postArray['item-name']) ||  empty($postArray['purchase-location']) || empty($postArray['type']) || empty($postArray['purchase-date'])){
+        return ['result' => false, 'message' => "Please enter a value for all fields."];
+    }
+    if(!validateDate($postArray['purchase-date'])){
+        return ['result' => false, 'message' => "Please ensure you enter a date in the format yyyy-mm-dd."];
+    }
+    return ['result' => true, 'message' => ""];
+}
+
+function checkDropdownSubmission(array $postArray): array {
+    $alcoholTypes = ["Rum", "Rye", "Vodka", "Whisky"];
+    if(!in_array($postArray['type'], $alcoholTypes)) {
+        return ['result' => false, 'message' => "You must choose one of the options for alcohol type."];
+    }
+    return ['result' => true, 'message' => ""];
 }
 
 function createBottlesHtml(array $allBottles): string {
@@ -23,20 +52,20 @@ function createBottlesHtml(array $allBottles): string {
     {
         return "createBottlesHtml function has not been passed an array within an array";
     }
-    $unfriendlyNames = ["purchaselocation", "type", "purchasedate"];
-    $friendlyNames = ["Purchase location", "Type", "Date purchased"];
     $bottlesHtml = "";
     foreach($allBottles as $bottle) {
         $bottlesHtml .= '<div class="bottleCard">';
-        $bottlesHtml .= "<h2>" . $bottle['itemname'] . "</h2>";
+        $bottlesHtml .= '<h3>' . $bottle['itemname'] . '</h3>';
         foreach($bottle as $detailName => $detailValue){
             if($detailName == 'itemname' || $detailName == 'id') {
                 continue;
             }
-            $bottlesHtml .= "<p>" . $detailName . ": " . $detailValue . "</p>";
+            $bottlesHtml .= '<h4>' . $detailName . '</h4>' . '<p>' . $detailValue . '</p>';
         }
-        $bottlesHtml .= "</div>";
+        $bottlesHtml .= '</div>';
     }
+    $unfriendlyNames = ["purchaselocation", "type", "purchasedate"];
+    $friendlyNames = ["Purchase location", "Type", "Date purchased"];
     $bottlesHtml = str_replace($unfriendlyNames, $friendlyNames, $bottlesHtml);
     return $bottlesHtml;
 }
