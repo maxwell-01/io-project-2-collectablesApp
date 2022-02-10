@@ -22,7 +22,7 @@ function addBottle(PDO $pdo, string $itemName, string $purchaseLocation, string 
 }
 
 function updateBottle(PDO $pdo, string $id, string $itemName, string $purchaseLocation,string $type, string $purchaseDate) {
-    $sql = "UPDATE `bottles` SET `itemname` = ?, `purchaselocation` = ?, `type` = ?, `purchasedate` = ? WHERE id = ?";
+    $sql = "UPDATE `bottles` SET `itemname` = ?, `purchaselocation` = ?, `type` = ?, `purchasedate` = ? WHERE `id` = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$itemName, $purchaseLocation, $type, $purchaseDate, $id]);
 }
