@@ -23,6 +23,8 @@ h3 {
 h4 {
     font-size: 1.5rem;
     font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
 }
 p {
     font-size: 1.5rem;
@@ -60,26 +62,6 @@ input, select {
     text-align: center;
     font-size: 1.5rem;
 }
-.form-outer {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 30px;
-}
-.form-inner {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 20px;
-}
-.form-inner div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
 .form-submit-button {
     text-decoration: none;
     font-size: 2rem;
@@ -116,10 +98,82 @@ input, select {
     gap: 20px;
 }
 .bottleCard {
+    scroll-margin-top: 250px;
     width: 400px;
     padding: 20px;
     border: #ffffff solid 2px;
     border-radius: 3px;
+}
+.card-details-parent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.card-details-parent div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-details-parent h3 {
+    display: inline-block;
+}
+.card-outer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+}
+.card-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.card-inner div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+.card-inner div p {
+    margin: 0 auto;
+    width: 200px;
+    text-align: center;
+}
+.bottle-card-header h3 {
+    display: inline-block;
+}
+.edit-initiate-form {
+    display: inline;
+}
+.edit-button-on-card {
+    display: inline;
+    background-color: transparent;
+    max-width: 35px;
+    max-height: 20px;
+}
+.form-outer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+}
+.form-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+.form-inner div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 @media screen and (max-width: 600px) {
@@ -135,5 +189,11 @@ input, select {
     }
     .form-outer {
         flex-direction: column;
+    }
+    .bottleCard {
+        width: auto;
+    }
+    .card-inner div p {
+        width: auto;
     }
 }

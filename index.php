@@ -1,7 +1,7 @@
 <?php
 require_once("functions.php");
 
-$host = 'db';
+$host = '127.0.0.1';
 $username = 'root';
 $password = 'password';
 $dbName = 'collectorapp';
@@ -9,10 +9,26 @@ $dbName = 'collectorapp';
 $PDO = connectDb($host, $username, $password, $dbName);
 
 $errorMessage = "";
-if(count($_POST)>0) {
-    if (checkFormSubmission($_POST)[0]) {
-        addBottle($PDO, $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
-    } else $errorMessage = checkFormSubmission($_POST)[1];
+if(isset($_POST['sql-call-type'])){
+    if($_POST['sql-call-type'] == "new-item") {
+        $formSubmissionCheck = checkFormSubmission($_POST);
+        $dropdownSubmissionCheck = checkDropdownSubmission($_POST);
+        if ($formSubmissionCheck['result'] && $dropdownSubmissionCheck['result']) {
+            addBottle($PDO, $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
+        } else $errorMessage = $formSubmissionCheck['message'] .' '. $dropdownSubmissionCheck['message'];
+    }
+    if($_POST['sql-call-type'] == "update-item") {
+        $formSubmissionCheck = checkFormSubmission($_POST);
+        $dropdownSubmissionCheck = checkDropdownSubmission($_POST);
+        if ($formSubmissionCheck['result'] && $dropdownSubmissionCheck['result']) {
+            updateBottle($PDO, $_POST['id'], $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
+        } else $errorMessage = $formSubmissionCheck['message'] .' '. $dropdownSubmissionCheck['message'];
+    }
+}
+
+$editCardId = '';
+if(isset($_GET['editCardId'])) {
+    $editCardId = $_GET['editCardId'];
 }
 $bottles = getBottles($PDO);
 ?>
@@ -62,6 +78,7 @@ $bottles = getBottles($PDO);
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="sql-call-type" value="new-item">
                 <input type="submit" value="Add item" class="form-submit-button">
                 <p class="error-message"><?=$errorMessage?></p>
             </form>
@@ -70,7 +87,7 @@ $bottles = getBottles($PDO);
         <section class="item-cards-section">
             <h2>Currently in your collection...</h2>
             <div class="bottlesParent">
-                <?= createBottlesHtml($bottles);?>
+                <?= createBottlesHtml($bottles, $editCardId);?>
             </div>
         </section>
     </main>
