@@ -9,11 +9,27 @@ $dbName = 'collectorapp';
 $PDO = connectDb($host, $username, $password, $dbName);
 
 $errorMessage = "";
-if(count($_POST)>0) {
-    if (checkFormSubmission($_POST)[0]) {
+if(count($_POST) == 4) {
+    $formSubmissionCheck = checkFormSubmission($_POST);
+    $dropdownSubmissionCheck = checkDropdownSubmission($_POST);
+    if ($formSubmissionCheck['result'] && $dropdownSubmissionCheck['result']) {
         addBottle($PDO, $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
-    } else $errorMessage = checkFormSubmission($_POST)[1];
+    } else $errorMessage = $formSubmissionCheck['message'] . $dropdownSubmissionCheck['message'];
 }
+if(count($_POST) == 5) {
+    $formSubmissionCheck = checkFormSubmission($_POST);
+    $dropdownSubmissionCheck = checkDropdownSubmission($_POST);
+    if ($formSubmissionCheck['result'] && $dropdownSubmissionCheck['result']) {
+        updateBottle($PDO, $_POST['id'], $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
+    } else $errorMessage = $formSubmissionCheck['message'] . $dropdownSubmissionCheck['message'];
+}
+
+
+$editCardId = '';
+if(isset($_GET['editCardId'])) {
+    $editCardId = $_GET['editCardId'];
+}
+
 $bottles = getBottles($PDO);
 ?>
 <!DOCTYPE html>
@@ -70,7 +86,7 @@ $bottles = getBottles($PDO);
         <section class="item-cards-section">
             <h2>Currently in your collection...</h2>
             <div class="bottlesParent">
-                <?= createBottlesHtml($bottles);?>
+                <?= createBottlesHtml($bottles, $editCardId);?>
             </div>
         </section>
     </main>
