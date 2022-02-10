@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class Functions extends TestCase
 {
-    public function testSuccessCreateBottlesHtmlAddBottle()
+    public function testSuccessCreateBottlesHtml()
     {
         $testInput = [
             ['id' => 1, 'itemname' => 'Park Rye', 'type' => 'Rye', 'purchaselocation' => 'Canada', 'purchasedate' => '2022-01-04']
