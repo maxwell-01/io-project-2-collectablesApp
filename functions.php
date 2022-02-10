@@ -62,9 +62,10 @@ function createBottlesHtml(array $allBottles, string $editCardId = null): string
         if(isset($editCardId) && $editCardId == $bottle['id']) {
             $bottlesHtml .=
                 '
-                <form class="card-edit-button-form" method="POST" action="index.php#dbId-'.$bottle['id'].'">
-                    <div class="form-outer">
-                        <div class="form-inner">
+                <form class="card-ed it-button-form" method="POST" action="index.php#dbId-'.$bottle['id'].'">
+                    <div class="card-outer">
+                        <h3>Bottle number '.$bottle['id'].'</h3>
+                        <div class="card-inner">
                             <div>
                                 <label for="item-name">Bottle name</label>
                                 <input type="text" id="item-name" name="item-name" value="'.$bottle['itemname'].'" required>
@@ -80,7 +81,7 @@ function createBottlesHtml(array $allBottles, string $editCardId = null): string
                                 </select>
                             </div>
                         </div>
-                        <div class="form-inner">
+                        <div class="card-inner">
                             <div>
                                 <label for="purchase-location">Purchase location</label>
                                 <input type="text" id="purchase-location" name="purchase-location"  value="'.$bottle['purchaselocation'].'" required>
@@ -98,21 +99,35 @@ function createBottlesHtml(array $allBottles, string $editCardId = null): string
                 ';
         } else {
             $bottlesHtml .=
-                '<div class="bottle-card-header">
-                <h3>' . $bottle['itemname'] . '</h3>
-                <form class="edit-initiate-form" method="GET" action="index.php#dbId-'.$bottle['id'].'">
-                    <input type="hidden" name="editCardId" value="'.$bottle['id'].'">
-                    <input type="image" alt="edit-button" src="edit.png" class="edit-button-on-card">
-                </form>';
-//            $bottlesHtml .= '<a href="index.php#dbId-'.$bottle['id'].'"><img src="edit.png" alt="edit-button" class="edit-button-on-card"></a>';
-            $bottlesHtml .= '</div><div class="bottle-card-data">';
-            foreach($bottle as $detailName => $detailValue){
-                if($detailName == 'itemname' || $detailName == 'id') {
-                    continue;
-                }
-                $bottlesHtml .= '<h4>' . $detailName . ': '. '</h4>' . '<p>' . $detailValue . '</p>';
-            }
-            $bottlesHtml .= '</div>';
+                '<div class="card-parent">
+                    <h3>Bottle number '.$bottle['id'].'</h3>
+                    <form class="edit-initiate-form" method="GET" action="index.php#dbId-'.$bottle['id'].'">
+                        <input type="hidden" name="editCardId" value="'.$bottle['id'].'">
+                        <input type="image" alt="edit-button" src="edit.png" class="edit-button-on-card">
+                    </form>
+                    <div class="card-outer">
+                        <div class="card-inner">
+                            <div>
+                                <h4>Bottle name</h4>
+                                <p>'.$bottle['itemname'].'</p>
+                            </div>
+                            <div>
+                                <h4>Type of alcohol</h4>
+                                <p>'.$bottle['type'].'</p>
+                            </div>
+                        </div>
+                        <div class="card-inner">
+                            <div>
+                                <h4>Purchase location</h4>
+                                <p>'.$bottle['purchaselocation'].'</p>
+                            </div>
+                            <div>
+                                <h4>Purchased date</h4>
+                                <p>'.$bottle['purchasedate'].'</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
         }
         $bottlesHtml .= '</div>';
     }
