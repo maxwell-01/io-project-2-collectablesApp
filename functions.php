@@ -7,7 +7,7 @@ function connectDb(string $host, string $user, string $password, string $dbName)
     return $pdo;
 }
 
-function getBottles($pdo): array {
+function getBottles(PDO $pdo): array {
     $sql = "SELECT * FROM `bottles`";
     $statement = $pdo->prepare($sql);
     $statement->execute();
@@ -15,8 +15,8 @@ function getBottles($pdo): array {
     return $results;
 }
 
-function addBottle(PDO $pdo, string $itemName, string $purchaseLocation,string $type, string $purchaseDate) {
-    $sql = "INSERT INTO `bottles`(itemname, purchaselocation, type, purchasedate) VALUES (?, ?, ?, ?)";
+function addBottle(PDO $pdo, string $itemName, string $purchaseLocation, string $type, string $purchaseDate) {
+    $sql = "INSERT INTO `bottles`(`itemname`, `purchaselocation`, `type`, `purchasedate`) VALUES (?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$itemName, $purchaseLocation, $type, $purchaseDate]);
 }
@@ -41,8 +41,8 @@ function checkFormSubmission(array $postArray): array {
         return ['result' => false, 'message' => "Please ensure you enter a date in the format yyyy-mm-dd."];
     }
     return ['result' => true, 'message' => ""];
-
 }
+
 function checkDropdownSubmission(array $postArray): array {
     $alcoholTypes = ["Rum", "Rye", "Vodka", "Whisky"];
     if(!in_array($postArray['type'], $alcoholTypes)) {

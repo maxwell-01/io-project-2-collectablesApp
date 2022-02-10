@@ -9,6 +9,7 @@ $dbName = 'collectorapp';
 $PDO = connectDb($host, $username, $password, $dbName);
 
 $errorMessage = "";
+
 if(isset($_POST['sql-call-type'])){
     if($_POST['sql-call-type'] == "new-item") {
         $formSubmissionCheck = checkFormSubmission($_POST);
@@ -30,6 +31,7 @@ $editCardId = '';
 if(isset($_GET['editCardId'])) {
     $editCardId = $_GET['editCardId'];
 }
+
 $bottles = getBottles($PDO);
 ?>
 <!DOCTYPE html>
