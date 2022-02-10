@@ -7,7 +7,7 @@ function connectDb(string $host, string $user, string $password, string $dbName)
     return $pdo;
 }
 
-function getBottles($pdo): array {
+function getBottles(PDO $pdo): array {
     $sql = "SELECT * FROM `bottles`";
     $statement = $pdo->prepare($sql);
     $statement->execute();
@@ -15,8 +15,8 @@ function getBottles($pdo): array {
     return $results;
 }
 
-function addBottle(PDO $pdo, string $itemName, string $purchaseLocation,string $type, string $purchaseDate) {
-    $sql = "INSERT INTO `bottles`(itemname, purchaselocation, type, purchasedate) VALUES (?, ?, ?, ?)";
+function addBottle(PDO $pdo, string $itemName, string $purchaseLocation, string $type, string $purchaseDate) {
+    $sql = "INSERT INTO `bottles`(`itemname`, `purchaselocation`, `type`, `purchasedate`) VALUES (?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$itemName, $purchaseLocation, $type, $purchaseDate]);
 }
@@ -29,16 +29,20 @@ function validateDate(string $date, string $format = 'Y-m-d'): bool
 
 function checkFormSubmission(array $postArray): array {
     if(empty($postArray['item-name']) ||  empty($postArray['purchase-location']) || empty($postArray['type']) || empty($postArray['purchase-date'])){
-        return [false, "Please enter a value for all fields."];
+        return ['result' => false, 'message' => "Please enter a value for all fields."];
     }
     if(!validateDate($postArray['purchase-date'])){
-        return [false, "Please ensure you enter a date in the format yyyy-mm-dd."];
+        return ['result' => false, 'message' => "Please ensure you enter a date in the format yyyy-mm-dd."];
     }
+    return ['result' => true, 'message' => ""];
+}
+
+function checkDropdownSubmission(array $postArray): array {
     $alcoholTypes = ["Rum", "Rye", "Vodka", "Whisky"];
     if(!in_array($postArray['type'], $alcoholTypes)) {
-        return [false, "You must choose one of the options for alcohol type."];
+        return ['result' => false, 'message' => "You must choose one of the options for alcohol type."];
     }
-    return [true, ""];
+    return ['result' => true, 'message' => ""];
 }
 
 function createBottlesHtml(array $allBottles): string {
@@ -56,7 +60,7 @@ function createBottlesHtml(array $allBottles): string {
             if($detailName == 'itemname' || $detailName == 'id') {
                 continue;
             }
-            $bottlesHtml .= '<h4>' . $detailName . ': '. '</h4>' . '<p>' . $detailValue . '</p>';
+            $bottlesHtml .= '<h4>' . $detailName . '</h4>' . '<p>' . $detailValue . '</p>';
         }
         $bottlesHtml .= '</div>';
     }

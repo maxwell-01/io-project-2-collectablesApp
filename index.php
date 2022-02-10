@@ -10,9 +10,11 @@ $PDO = connectDb($host, $username, $password, $dbName);
 
 $errorMessage = "";
 if(count($_POST)>0) {
-    if (checkFormSubmission($_POST)[0]) {
+    $formSubmissionCheck = checkFormSubmission($_POST);
+    $dropdownSubmissionCheck = checkDropdownSubmission($_POST);
+    if ($formSubmissionCheck['result'] && $dropdownSubmissionCheck['result']) {
         addBottle($PDO, $_POST['item-name'], $_POST['purchase-location'], $_POST['type'], $_POST['purchase-date']);
-    } else $errorMessage = checkFormSubmission($_POST)[1];
+    } else $errorMessage = $formSubmissionCheck['message'] . $dropdownSubmissionCheck['message'];
 }
 $bottles = getBottles($PDO);
 ?>
